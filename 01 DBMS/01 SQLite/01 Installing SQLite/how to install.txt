@@ -1,0 +1,11 @@
+Download from the website SQLiteStudio the installation file
+
+Write in the terminal
+
+chmod +x InstallSQLiteStudio-3.2.1
+
+./InstallSQLiteStudio-3.2.1
+
+Or without the workspace
+
+sudo apt-get install sqlite

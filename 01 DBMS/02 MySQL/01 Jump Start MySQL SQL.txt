@@ -1,0 +1,1216 @@
+CREATE TABLE employee (
+employee_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+last_name VARCHAR(30) NOT NULL,
+first_name VARCHAR(30) NOT NULL,
+email VARCHAR(100) NOT NULL,
+hire_date DATE NOT NULL,
+notes MEDIUMTEXT,
+PRIMARY KEY (employee_id),
+INDEX (last_name),
+UNIQUE (email)
+)
+ENGINE=InnoDB;
+CREATE TABLE address (
+employee_id INTEGER UNSIGNED NOT NULL,
+address VARCHAR(50) NOT NULL,
+city VARCHAR(30) NOT NULL,
+state CHAR(2) NOT NULL,
+postcode CHAR(5) NOT NULL,
+FOREIGN KEY (employee_id)
+REFERENCES employee (employee_id)
+)
+ENGINE=InnoDB;
+
+DESCRIBE employee;
+
+SHOW CREATE TABLE employee;
+
+CREATE TABLE charset_example (
+id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+ascii_string VARCHAR(255) CHARACTER SET ascii NOT NULL,
+latin1_string VARCHAR(255) CHARACTER SET latin1 NOT NULL,
+utf8_string VARCHAR(255) CHARACTER SET utf8 NOT NULL,
+PRIMARY KEY (id)
+);
+
+SHOW ENGINES;
+
+INSERT INTO employee
+(first_name, last_name, email, hire_date)
+VALUES
+('Nischal', 'Bhatia', 'nbhatia@example.com', '2014-12-15');
+
+SELECT * FROM employee;
+
+INSERT INTO employee
+VALUES (NULL, 'Bhatia', 'Nischal', 'nbhatia@example.com',
+'2014-12-15', NULL);
+
+INSERT INTO address
+(employee_id, address, city, state, postcode)
+VALUES
+(1, '123 Main Street', 'Anytowne', 'XE', '97052');
+
+
+START TRANSACTION;
+INSERT INTO employee
+(employee_id, last_name, first_name, email, hire_date)
+VALUES
+(42, 'Virey', 'Gener', 'gvirey@example.com', '2015-04-02');
+SELECT * FROM employee;
+
+
+
+ROLLBACK;
+SELECT * FROM employee;
+
+
+START TRANSACTION;
+INSERT INTO employee
+(employee_id, last_name, first_name, email, hire_date)
+VALUES
+(42, 'Virey', 'Gener', 'gvirey@example.com', '2015-04-02');
+
+INSERT INTO address
+(employee_id, address, city, state, postcode)
+VALUES
+(42, '227 North Avenue', 'Anytowne', 'XE', '97052');
+COMMIT;
+
+
+GRANT CREATE, DROP, ALTER, INSERT, UPDATE, SELECT, DELETE,
+INDEX, CREATE VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE,
+TRIGGER, INDEX ON sakila.* TO 'jump'@'localhost';
+GRANT SUPER, RELOAD, FILE ON *.* TO 'jump'@'localhost';
+FLUSH PRIVILEGES;
+
+SELECT last_name, first_name FROM actor;
+
+SELECT last_name, first_name FROM actor ORDER BY last_name;
+
+SELECT last_name, first_name FROM actor ORDER BY last_name ASC,
+first_name DESC;
+
+
+
+SHOW COLLATION;
+
+
+
+SELECT last_name, first_name FROM actor ORDER BY last_name
+COLLATE utf8_bin ASC;
+
+
+
+SELECT last_name, first_name FROM actor ORDER BY last_name,
+first_name DESC LIMIT 5;
+
+
+
+SELECT title, length, rating FROM film WHERE length < 60
+ORDER BY title;
+
+
+
+SELECT title, length, rating FROM film WHERE length >= 60 AND
+length <= 120 ORDER BY title;
+
+
+
+SELECT title, length FROM film WHERE length = 60 OR length = 120 OR
+length = 180 ORDER BY title;
+
+
+
+SELECT title, length, rating FROM film WHERE title LIKE '%GAME%'
+ORDER BY title;
+
+
+
+SELECT title FROM film WHERE title LIKE 'A%'
+UNION
+SELECT title FROM film WHERE title LIKE 'Z%';
+
+
+
+SELECT MAX(amount) FROM payment;
+
+
+
+SELECT COUNT(payment_id) FROM payment;
+
+
+
+SELECT customer_id, SUM(amount) AS amt FROM payment GROUP BY
+customer_id ORDER BY amt DESC LIMIT 10;
+
+
+
+SELECT customer_id, first_name, last_name FROM customer WHERE
+first_name = 'Courtney' AND last_name = 'Day';
+
+
+
+UPDATE customer SET last_name = 'DAY-WEBB' WHERE
+customer_id = 245;
+
+
+
+UPDATE customer SET last_name = 'DAY-WEBB', last_update =
+last_update WHERE customer_id = 245;
+
+
+
+UPDATE customer SET active = 0 WHERE customer_id = 245;
+
+
+
+DELETE FROM customer WHERE customer_id = 245;
+
+
+
+DELETE FROM payment WHERE customer_id = 245;
+DELETE FROM rental WHERE customer_id = 245;
+DELETE FROM customer WHERE customer_id = 245;
+
+
+
+SELECT actor_id, COUNT(actor_id) AS appearances
+FROM film_actor GROUP BY actor_id ORDER BY appearances DESC
+LIMIT 5;
+
+
+
+SELECT actor_id, first_name, last_name FROM actor WHERE
+actor_id IN (107, 102, 198, 181, 23);
+
+
+
+SELECT
+     a.first_name, a.last_name,
+     COUNT(fa.film_id) AS appearance_count
+FROM
+     film_actor AS fa
+     JOIN actor AS a ON a.actor_id = fa.actor_id
+GROUP BY
+     fa.actor_id
+ORDER BY
+     appearance_count DESC,
+     a.first_name ASC,
+     a.last_name ASC
+LIMIT 5;
+
+
+
+SELECT actor_id, first_name last_name FROM actor;
+
+
+
+SELECT
+     a.first_name, a.last_name,
+     COUNT(fa.film_id) AS appearance_count
+FROM
+     film_actor AS fa
+     JOIN actor AS a
+WHERE
+     a.actor_id = fa.actor_id;
+
+
+
+CREATE TABLE foo (
+     foo_id INTEGER,
+     foo_value CHAR(3)
+);
+
+CREATE TABLE bar (
+     bar_id INTEGER,
+     bar_value CHAR(3),
+     foo_id INTEGER
+);
+
+INSERT INTO foo (foo_id, foo_value) VALUES (1, 'foo');
+INSERT INTO foo (foo_id, foo_value) VALUES (2, 'bar');
+
+INSERT INTO bar (bar_id, bar_value, foo_id) VALUES (1, 'baz', 2);
+INSERT INTO bar (bar_id, bar_value, foo_id) VALUES (2, 'qux', 3);
+
+
+
+
+SELECT * FROM foo f INNER JOIN bar b ON b.foo_id = f.foo_id;
+
+
+
+
+SELECT * FROM foo f LEFT OUTER JOIN bar b ON
+f.foo_id = b.foo_id;
+
+
+
+SELECT * FROM foo f RIGHT OUTER JOIN bar b ON
+f.foo_id = b.foo_id;
+
+
+
+SELECT * FROM foo JOIN bar;
+
+
+
+CREATE VIEW actor_appearance
+AS SELECT
+     a.first_name, a.last_name,
+     COUNT(fa.film_id) AS appearance_count
+FROM
+     film_actor AS fa
+     JOIN actor AS a ON a.actor_id = fa.actor_id
+GROUP BY
+     fa.actor_id;
+     
+SELECT * FROM actor_appearance ORDER BY appearance_count
+DESC LIMIT 5;
+
+SELECT
+     c.first_name, c.last_name, c.last_update, a.address,
+     a.last_update
+FROM
+     customer AS c
+     JOIN address AS a ON a.address_id = c.address_id;     
+     
+     
+CREATE VIEW customer_address (
+     first_name, last_name, cust_last_update, address,
+     addr_last_upate
+)
+AS SELECT
+     c.first_name, c.last_name, c.last_update, a.address,
+     a.last_update
+FROM
+     customer AS c
+     JOIN address AS a ON a.address_id = c.address_id;
+     
+     
+     
+
+CREATE VIEW active_customer
+AS SELECT
+     customer_id, first_name, last_name, email
+FROM
+     customer
+WHERE
+     active = 1;
+     
+     
+     
+SELECT
+     a.actor_id, a.first_name, a.last_name, f.film_id, f.title
+FROM
+     film_actor fa
+     JOIN actor a ON fa.actor_id = a.actor_id
+     JOIN film f ON fa.film_id = f.film_id;
+     
+
+
+ALTER TABLE actor ADD COLUMN bio VARCHAR(255) AFTER last_name;
+
+
+
+ALTER TABLE actor DROP COLUMN bio;
+
+
+
+ALTER TABLE actor ADD INDEX idx_last_update (last_update);
+
+
+
+ALTER TABLE actor DROP INDEX idx_last_update;
+
+
+
+SHOW INDEX FROM actor;
+
+
+
+
+
+ALTER TABLE actor
+     ADD COLUMN bio VARCHAR(255) AFTER last_name,
+     ADD INDEX idx_last_update (last_update);
+
+
+
+#! /usr/bin/env python
+# Step 1: import the connector
+import mysql.connector
+# Step 2: open a connection
+conn = mysql.connector.Connect(host="localhost", user="jump",
+password="secret", database="sakila")
+# Step 3: obtain a cursor
+cursor = conn.cursor()
+# Step 4: construct and send a query
+query = ("SELECT last_name, first_name FROM actor "
+"ORDER BY last_name, first_name")
+cursor.execute(query)
+# Step 5: iterate the results
+for row in cursor:
+print("{:<45} {:<45}".format(*row))
+# Step 6: clean up
+cursor.close()
+conn.close()
+
+
+# Just a convenience function for formatted output
+def display(*row):
+print("{:<45} {:<45}".format(*row))
+# send a query
+query = ("SELECT last_name, first_name FROM actor "
+"ORDER BY last_name, first_name")
+cursor.execute(query)
+# fetch one row
+row = cursor.fetchone()
+display(*row)
+# fetch the next 20 rows
+rows = cursor.fetchmany(20)
+for row in rows:
+display(*row)
+# fetch all of the remaining rows
+rows = cursor.fetchall()
+for row in rows:
+display(*row)
+
+
+# send a query - affects the database
+query = ("INSERT INTO actor (last_name, first_name) "
+"VALUES ('OLIVER', 'BRENDA')")
+cursor.execute(query)
+# commit the transaction
+conn.commit()
+
+
+dbcreds = {
+"host": "localhost",
+"user": "jump",
+"password": "secret",
+"database": "sakila"
+}
+# connect to the database server. cursor() returns a MySQLCursor
+# object
+conn = mysql.connector.Connect(**dbcreds)
+cursor = conn.cursor()
+print(type(cursor))
+# a second connection to the server. cursor() returns a
+# MySQLBuffered object
+conn2 = mysql.connector.Connect(buffered=True, **dbcreds)
+cursor2 = conn2.cursor()
+print(type(cursor2))
+# cursor() returns a MySQLBuffered object
+cursor3 = conn.cursor(buffered=True)
+print(type(cursor3))
+
+
+# obtain a cursor capable of using prepared statements
+cursor = conn.cursor(prepared=True)
+# construct a query template (C-style format)
+query = ("INSERT INTO actor (last_name, first_name) "
+"VALUES (%s, %s)")
+# here's some data ...
+records = [
+("AFFLECK", "LAUREN"),
+("BUTTERFIELD", "MIKE"),
+("EASTERBROOK", "ANGELA")
+]
+# execute a query for each record
+for row in records:
+cursor.execute(query, row)
+# commit the transaction
+conn.commit()
+
+
+
+
+<?php
+// Step 1: open a connection
+$db = new PDO("mysql:host=localhost;dbname=sakila", "jump",
+"secret");
+// Step 2: construct and send a query
+$query = "SELECT last_name, first_name FROM actor " .
+"ORDER BY last_name, first_name";
+$result = $db->query($query);
+// Step 3: iterate the results
+echo "<ul>";
+while ($row = $result->fetch()) {
+vprintf("<li>%s %s</li>", $row);
+}
+echo "</ul>";
+// Step 4: clean up
+$result->closeCursor();
+$db = null;
+
+
+
+
+
+
+// just a convenience function for output
+function display($lastName, $firstName) {
+echo "<div>{$lastName} {$firstName}</div>";
+}
+// send a query
+$query = "SELECT last_name, first_name FROM actor " .
+"ORDER BY last_name, first_name";
+$result = $db->query($query);
+// fetch one row as associative array
+$row = $result->fetch(PDO::FETCH_ASSOC);
+display($row["last_name"], $row["first_name"]);
+// fetch next row as numerically-indexed array
+$rows = $result->fetch(PDO::FETCH_NUM);
+display($row[0], $row[1]);
+// fetch another row accessible both ways
+$rows = $result->fetch(PDO::FETCH_BOTH);
+display($row[0], $row[1]);
+display($row["last_name"], $row["first_name"]);
+// fetch all remaining rows as objects
+while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+display($row->last_name, $row->first_name);
+}
+
+
+
+// define a simple class
+class Actor
+{
+     // properties initialized by PDO
+     private $last_name;
+     private $first_name;
+     
+     public function getLastName() {
+          return $this->last_name;
+     }
+     public function getFirstName() {
+          return $this->first_name;
+     }
+}
+
+// send a query
+$query = "SELECT last_name, first_name FROM actor " .
+     "ORDER BY last_name, first_name";
+$result = $db->query($query);
+
+// instanciate an Actor object populated by query results
+$row = $result->fetchObject("Actor");
+display($row->getLastName(), $row->getFirstName());
+
+
+
+<?php
+$db = new PDO("mysql:host=localhost;dbname=sakila", "jump",
+"secret");
+// use buffered results, set false for unbuffered
+$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+
+
+
+
+// Set error mode to silent
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+
+// submit a malformed query
+$query = "MALFORMED QUERY";
+$result = $db->query($query);
+
+// display the error details
+print_r($db->errorInfo());
+
+
+
+
+
+
+// set error mode to exception
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// submit a malformed query
+$query = "MALFORMED QUERY";
+try {
+     $result = $db->query($query);
+}
+catch (PDOException $e) {
+     // Display the exception message
+     echo $e->getMessage();
+}
+
+
+
+
+// construct a query template
+$query = "INSERT INTO actor (last_name, first_name) VALUES " .
+     "(:last, :first)";
+
+// prepare the statement
+$stmt = $db->prepare($query);
+
+// here's some data...
+$records = [
+["last" => "AFFLECK", "first" => "LAUREN"],
+["last" => "BUTTERFIELD", "first" => "MIKE"],
+["last" => "EASTERBROOK", "first" => "ANGELA"]
+];
+
+
+// execute the query for each record
+foreach ($records as $row) {
+     $stmt->execute($row);
+}
+
+
+
+#! /usr/bin/env Rscript
+
+# Step 1: import library
+library(RMySQL)
+
+# Step 2: open a connection
+con <- dbConnect(MySQL(), user="jump", password="secret",
+               host="localhost", dbname="sakila")
+
+# Step 3: read the table into a dataframe
+dframe <- dbReadTable(con, "actor")
+
+# Step 4: analyze the data
+summary(dframe)
+
+# Step 5: cleanup
+dbDisconnect(con)
+rm(con)
+
+
+# create a duplicate actor table without row_names column
+dbWriteTable(con, "actor_dupe", dframe)
+
+
+
+
+# create a duplicate actor table without row_names column
+dbWriteTable(con, "actor_dupe", dframe, row.names=FALSE)
+
+
+
+
+query <- paste0("SELECT last_name, first_name FROM actor ",
+"ORDER BY last_name, first_name")
+dframe <- dbGetQuery(con, query)
+
+
+
+query <- paste0("SELECT last_name, first_name FROM actor ",
+     "ORDER BY last_name, first_name")
+res <- dbSendQuery(con, query)
+while (!dbHasCompleted(res)) {
+     # retrieve data 20 rows at a time
+     chunk      <- dbFetch(res, n=20)
+     # do something with the data
+     print(chunk)
+}
+# free the result set
+dbClearResult(res)
+
+
+
+DELIMITER $$
+
+DELIMITER ;
+
+
+
+SET my_var = 42;
+
+
+
+SELECT first_name, last_name INTO @fname, @lname FROM
+actor WHERE id = 7;
+
+
+
+IF my_var > 0 THEN
+     SELECT 'value is positive';
+ELSEIF my_var < 0 THEN
+     SELECT 'value is negative';
+ELSE
+     SELECT 'value is zero';
+END IF;
+
+
+
+CASE rating
+WHEN 'G', 'PG', 'PG-13' THEN
+     SELECT 'family friendly';
+WHEN 'R' THEN
+     SELECT 'adults only';
+ELSE
+     SELECT 'unknown rating';
+END CASE;
+
+
+
+
+WHILE countdown > 0 DO
+     SET countdown = countdown - 1;
+END WHILE;
+
+
+
+
+REPEAT
+     SET countdown = countdown - 1;
+UNTIL countdown = 0
+END REPEAT;
+
+
+
+
+DECLARE id, i INTEGER UNSIGNED;
+DECLARE name CHAR(45);
+DECLARE curs CURSOR FOR SELECT customer_id, last_name
+     FROM customer;
+
+OPEN curs;
+SET i = FOUND_ROWS();
+WHILE i > 0 THEN
+     SET i = i - 1;
+     FETCH curs INTO id, name;
+END WHILE;
+CLOSE curs;
+
+
+
+-- this is a single-line comment
+
+# this is another single-line comment
+
+/* this comment can span
+   multiple lines */
+   
+   
+   
+   
+
+
+DELIMITER $$
+
+CREATE FUNCTION UCWords (
+     string VARCHAR(255)
+) RETURNS VARCHAR(255)
+BEGIN
+     DECLARE buffer VARCHAR(255) DEFAULT '';
+     DECLARE word VARCHAR(255);
+     DECLARE pos TINYINT UNSIGNED;
+     
+     REPEAT
+          -- pop word from beginning of string
+          SET pos = LOCATE(' ', string);
+          IF pos > 0 THEN
+               SET word = SUBSTRING(string, 1, pos - 1);
+               SET string = SUBSTRING(string, pos + 1);
+          ELSE
+               -- reached the last word
+               SET word = string;
+               SET string = '';
+          END IF;
+          
+          SET word = CONCAT(
+               UPPER(SUBSTRING(word, 1, 1)),
+               LOWER(SUBSTRING(word, 2)));
+          
+          SET buffer = CONCAT(buffer, ' ', word);
+     UNTIL LENGTH(string) = 0
+     END REPEAT;
+     
+     -- trim leading space
+     RETURN SUBSTRING(buffer, 2);
+END$$
+
+DELIMITER ;
+
+
+
+
+          
+SELECT UCWords(title) AS title FROM film ORDER BY title;
+
+
+
+SHOW FUNCTION STATUS;
+
+
+SHOW CREATE FUNCTION function_name;
+
+
+
+DROP FUNCTION function_name;
+
+
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE rental_report (
+     IN cust_id INTEGER UNSIGNED,
+     OUT film_count TINYINT
+) BEGIN
+     DECLARE cust_name VARCHAR(92);
+     DECLARE i INTEGER;
+     -- cursors must be declared after all other variables
+     DECLARE curs CURSOR FOR SELECT
+          UCWords(CONCAT(c.last_name, ', ', c.first_name)),
+          COUNT(i.film_id)
+     FROM
+          rental r
+          JOIN inventory i ON r.inventory_id = i.inventory_id
+          JOIN customer c ON r.customer_id = c.customer_id
+     WHERE
+          r.return_date IS NULL
+          AND r.customer_id = cust_id
+     GROUP BY
+          r.customer_id;
+     
+     OPEN curs;
+     IF FOUND_ROWS() > 0 THEN
+          FETCH curs INTO cust_name, film_count;
+          
+          -- header
+          (SELECT
+               cust_id AS `CUSTOMER ID`,
+               cust_name AS `CUSTOMER NAME`,
+               film_count AS `RENTALS`)
+          UNION
+          
+          -- list film rentals
+          (SELECT
+               ' ', ' ', UCWords(f.title)
+          FROM
+               rental r
+               JOIN inventory i ON r.inventory_id = i.inventory_id
+               JOIN film f ON i.film_id = f.film_id
+          WHERE
+               r.return_date IS NULL
+               AND r.customer_id = cust_id
+          ORDER BY
+               f.title);
+     ELSE
+          SET film_count = 0;
+          SELECT
+               customer_id AS `CUSTOMER ID`,
+               UCWords(CONCAT(last_name, ', ', first_name))
+                    AS `CUSTOMER NAME`,
+                    0 AS `RENTALS`
+          FROM
+               customer
+          WHERE
+               customer_id = cust_id;
+     END IF;
+     CLOSE curs;
+END$$
+
+DELIMITER ;
+
+
+
+CALL rental_report(560, @count);
+
+
+
+
+SELECT @count;
+
+
+
+
+
+SHOW PROCEDURE STATUS;
+
+
+
+SHOW CREATE PROCEDURE procedure_name;
+
+
+
+DROP PROCEDURE procedure_name;
+
+
+
+ALTER TABLE customer
+     ADD COLUMN payment_count INTEGER NOT NULL DEFAULT 0,
+     ADD COLUMN average_amount DECIMAL(5,2) NOT NULL DEFAULT 0.00;
+
+
+
+
+DELIMITER $$
+
+CREATE FUNCTION tally_payment_count (
+     id SMALLINT UNSIGNED
+) RETURNS INTEGER UNSIGNED
+BEGIN
+     DECLARE pay_count INTEGER UNSIGNED;
+     
+     SELECT COUNT(customer_id) INTO pay_count FROM payment WHERE
+          customer_id = id;
+     RETURN pay_count;
+END $$
+
+CREATE FUNCTION tally_average_amount (
+     id SMALLINT UNSIGNED
+) RETURNS DECIMAL(5,2)
+BEGIN
+     DECLARE avg_amnt DECIMAL(5,2);
+     SELECT AVG(amount) INTO avg_amnt FROM payment WHERE
+          customer_id = id;
+     RETURN avg_amnt;
+END $$
+
+DELIMITER ;
+
+
+
+UPDATE customer SET
+     payment_count = tally_payment_count(customer_id),
+     average_amount = tally_average_amount(customer_id);
+     
+
+
+DELIMITER $$
+
+CREATE TRIGGER maintain_customer_spending_after_payment_insert
+AFTER INSERT ON payment
+FOR EACH ROW
+BEGIN
+     UPDATE customer SET
+          payment_count = tally_payment_count(NEW.customer_id),
+          average_amount = tally_average_amount(NEW.customer_id)
+     WHERE
+          customer_id = NEW.customer_id;
+END $$
+
+DELIMITER ;
+
+
+CREATE PROCEDURE foo ...
+CREATE PROCEDURE bar ...
+
+CREATE TRIGGER mytable_after_insert
+AFTER INSERT ON mytable FOR EACH ROW
+BEGIN
+     CALL foo();
+     CALL bar();
+END $$
+
+
+
+
+SHOW TRIGGERS;
+
+
+
+SHOW TRIGGERS LIKE 'trigger_name';
+
+
+
+
+DROP TRIGGER procedure_name;
+
+
+
+SET GLOBAL event_scheduler = ON;
+
+
+
+
+DELIMITER $$
+
+CREATE EVENT inactive_customer_maintenance
+     ON SCHEDULE
+          EVERY 1 DAY
+     DO
+BEGIN
+     UPDATE
+          customer c
+          JOIN rental r ON c.customer_id = r.customer_id
+     SET
+          c.active = 0
+     WHERE
+          r.rental_date < DATE_SUB(NOW(), INTERVAL 3 YEAR);
+END$$
+
+DELIMITER ;
+
+
+CREATE EVENT inactive_customer_maintenance
+     ON SCHEDULE
+          EVERY 1 DAY
+          STARTS CURRENT_TIMESTAMP
+          ENDS CURRENT_TIMESTAMP + INTERVAL 1 MONTH
+     DO
+BEGIN
+
+
+
+
+CREATE EVENT my_zombie_event
+     ON SCHEDULE
+          EVERY 1 DAY
+          ENDS CURRENT_TIMESTAMP + INTERVAL 1 MONTH
+          ON COMPLETION PRESERVE
+     DO
+BEGIN
+
+
+
+
+SHOW EVENTS;
+
+
+
+SHOW CREATE EVENT event_name;
+
+
+
+ALTER EVENT event_name DISABLE;
+ALTER EVENT event_name ENABLE;
+
+
+
+DROP EVENT event_name;
+
+
+
+#include <stdlib.h>
+#include <string.h>
+#include "mysql.h"
+my_bool benford_init(UDF_INIT *, UDF_ARGS *, char *);
+void benford_deinit(UDF_INIT *);
+void benford_clear(UDF_INIT *, UDF_ARGS *, char *, char *);
+void benford_add(UDF_INIT *, UDF_ARGS *, char *, char *);
+double benford(UDF_INIT *, UDF_ARGS *, char *, char *, char *);
+typedef struct
+{
+int seen; /* count of times the digit is seen */
+int rows; /* the number of rows processed */
+}
+benford_data;
+
+
+
+
+my_bool benford_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{
+     /* verify incoming arguments */
+     if (args->arg_count != 2) {
+          strcpy(message, "function expects two arguments.");
+          return 1;
+     }
+     /* coerce arguments - first arg to string will allow us to
+          accept INT, DOUBLE, and REAL values (and also easier to
+          extract most significant digit), the second arg must be
+          INT to compare */
+     args->arg_type[0] = STRING_RESULT;
+     args->arg_type[1] = INT_RESULT;
+     
+     /* init shared data block */
+     benford_data *data;
+     if (!(data = (benford_data *)malloc(sizeof(benford_data)))) {
+          strcpy(message, "Couldn't allocate memory");
+          return 1;
+     }
+     data->seen = 0;
+     data->rows = 0;
+     initid->ptr = (char *)data;
+
+     /* function will return 2 decimal places */
+     initid->decimals = 2;
+     
+     return 0;     
+}
+
+
+
+
+void benford_deinit(UDF_INIT *initid)
+{
+     free(initid->ptr);
+}
+
+
+
+
+void benford_clear(UDF_INIT *initid, UDF_ARGS *args, char *is_null,
+     char *error)
+{
+     benford_data *data = (benford_data *)initid->ptr;
+     /* init values to 0 */
+     data->seen = 0;
+     data->rows = 0;
+}
+
+
+
+
+void benford_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null,
+     char *error)
+{
+     benford_data *data = (benford_data *)initid->ptr;
+     data->rows++;
+     
+     if (args->args[0] && args->args[1]) {
+          /* extract the leading digit – easy because it's a string */
+          char *str = args->args[0];
+          int i = str[0] - '0';
+          
+          int j = *((int *)args->args[1]);
+          if (i && i == j) {
+               data->seen++;
+          }
+     }
+}
+
+
+
+
+
+double benford(UDF_INIT *initid, UDF_ARGS *args, char* result,
+     char *is_null, char *error)
+{
+     benford_data *data = (benford_data *)initid->ptr;
+     if (data->rows) { /* no divide by zero! */
+          return data->seen / (double)data->rows;
+     }
+     return 0.0;
+}
+
+
+
+
+SHOW GLOBAL VARIABLES like 'plugin_dir';
+
+
+
+
+CREATE AGGREGATE FUNCTION benford RETURNS REAL
+SONAME 'udf_benford.so';
+
+
+
+
+
+     
+SELECT customer_id, benford(amount, 1) FROM payment
+GROUP BY customer_id;
+
+
+
+
+
+FLUSH TABLES WITH READ LOCK;
+
+
+
+
+
+UNLOCK TABLES;
+
+
+
+SELECT * FROM actor INTO OUTFILE '/tmp/actor.txt';
+
+
+
+LOAD DATA INFILE '/tmp/actor.txt' INTO TABLE actor;
+
+
+
+SHOW VARIABLES LIKE 'datadir';
+
+
+
+
+sudo service mysql stop
+sudo tar -cpzf /media/external/mysql-backup-$(date +%F).tgz \
+/var/lib/mysql
+sudo service mysql start
+
+
+
+
+
+
+sudo service mysql stop
+sudo tar -C / --same-owner -xvzpf \
+/media/external/mysql-backup-YYYY-MM-DD.tgz
+sudo service mysql start
+
+
+
+
+server-id = 1
+log_bin = mysql-bin
+binlog_do_db = sakila
+# bind-address = 127.0.0.1
+
+
+
+CREATE USER 'repluser'@'%' IDENTIFIED BY 'P@$$w0rd';
+GRANT REPLICATION SLAVE ON *.* TO 'repluser'@'%';
+FLUSH PRIVILEGES;
+
+
+
+
+
+FLUSH TABLES WITH READ LOCK;
+
+
+
+mysqldump -u root -p sakila > sakila-backup.sql
+
+
+UNLOCK TABLES;
+
+
+
+
+SHOW MASTER STATUS;
+
+
+
+
+mysql -u root -p -e 'CREATE DATABASE sakila'
+mysql -u root -p < sakila-backup.sql
+
+
+
+
+
+server-id = 2
+
+
+
+
+CHANGE MASTER TO
+MASTER_HOST = '192.168.1.100',
+MASTER_USER = 'repluser',
+MASTER_PASSWORD = 'P@$$w0rd',
+MASTER_LOG_FILE = 'mysql-bin.000001',
+MASTER_LOG_POS = 107;
+
+
+
+
+STOP SLAVE;
+SET GLOBAL sql_slave_skip_counter = 1;
+START SLAVE;
+
+
+
+
+
+

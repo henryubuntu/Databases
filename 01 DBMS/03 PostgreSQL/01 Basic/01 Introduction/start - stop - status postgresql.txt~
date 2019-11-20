@@ -1,0 +1,5 @@
+You can also start and stop postgres server without specifying version:
+
+/etc/init.d/postgresql start
+
+

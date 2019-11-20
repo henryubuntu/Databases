@@ -1,0 +1,26 @@
+
+software-properties-gtk
+
+deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install postgresql-11 
+
+sudo apt-get install pgadmin4
+
+Looks like the user's password of postgresql, needs to be altered,
+else, results in error of connection, so use next to alter password:
+- Comprobado que lo siguiente debe hacerse.
+
+sudo -u postgres psql
+
+ALTER USER postgres PASSWORD 'henry.';   
+
+Create a launcher to start the database
+/etc/init.d/postgresql start
+
+Place the icon in  
+/usr/share/app-install/icons
