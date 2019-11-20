@@ -8,7 +8,7 @@ This plan is organized so you can exercise at least 1 hour a day, eat healthy fo
 
 This compilation is made also for those special people that are in our lifes, they do not really need money, they always need care, specially truthful love and protection.
 
-Thanks to the next authors who with his books is achieved this compilation:
+❤️ Thanks to the next authors who with his books is achieved this compilation:
 
 Felix Alvaro
 
