@@ -1,0 +1,25 @@
+#!/bin/bash
+# chkconfig: 35 99 10
+# description: Starts and stops Oracle processes
+
+ORACLE_HOME=/u01/app/oracle/product/12/dbhome_1
+ORACLE_OWNER=oracle
+
+PATH=${PATH}:$ORACLE_HOME/bin
+HOST=`hostname`
+PLATFORM=`uname`
+export ORACLE_HOME PATH
+case $1 in
+'start')
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/dbstart $ORACLE_HOME"
+        ;;
+'stop')
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/lsnrctl stop"
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/dbshut"
+        ;;
+*)
+        echo "usage: $0 {start|stop}"
+        exit 1
+esac
+#
+exit

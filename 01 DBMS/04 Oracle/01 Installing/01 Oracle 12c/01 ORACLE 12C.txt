@@ -1,0 +1,466 @@
+REQUISITOS MINIMOS
+- 1GB de RAM
+- Espacio en memoria swap mas de 150 MB
+- 20 GB de espacio libre en el disco duro
+- Monitor configurado para mostrar por lo menos 256 colores.
+
+COMANDOS PARA INSTALAR ORACLE 12C EN UBUNTU 16.04.3
+
+-> Para descomprimir el paquete
+
+unzip linuxx64_12201_database.zip -d /tmp
+
+-> Abrimos una nueva terminal e ingresamos como super usuario
+
+sudo su
+
+-> Para crear nuevos grupos y usuarios (HAY QUE SER SUPER USUARIO)
+
+groupadd -g 502 oinstall
+groupadd -g 503 dba
+groupadd -g 504 oper
+groupadd -g 505 asmadmin
+
+-> Para crear el usuario oracle (HAY QUE SER SUPER USUARIO)
+
+useradd -u 502 -g oinstall -G dba,asmadmin,oper -s /bin/bash -m oracle
+passwd oracle
+
+-> Para instalar la libreria libmotif4
+
+Usar gdebi para instalar el .deb
+
+-> Para instalar los paquetes necesarios
+
+echo 'deb http://cz.archive.ubuntu.com/ubuntu precise main universe' >> /etc/apt/sources.list.d/extra.list
+
+apt-get update
+
+apt-get install alien autoconf automake autotools-dev binutils doxygen \
+elfutils expat gawk gcc gcc-multilib g++-multilib libstdc++6:i386 ksh less libtiff5 \
+libtiff5-dev lib32z1 libaio1 libaio-dev libc6-dev libc6-dev-i386 libc6-i386 \
+libelf-dev libltdl-dev libmotif4 libodbcinstq4-1 libodbcinstq4-1:i386 \
+libpthread-stubs0 libpth-dev libstdc++5 lsb-cxx make \
+pdksh openssh-server rlwrap rpm sysstat unixodbc unixodbc-dev x11-utils \
+zlibc libglapi-mesa:i386 libglu1-mesa:i386 libqt4-opengl:i386 \
+libpthread-workqueue0 libpthread-workqueue-dev libzthread-2.3-2 libzthread-dev \
+libpthread-stubs0-dev libaio-dev
+
+-> Para darle permisos a oinstall para acceder a la instalacion de  oracle
+
+chown -R oracle:oinstall /tmp/database
+
+-> Para darle acceso a oracle a xhost
+
+xhost +SI:localuser:oracle
+
+-> Para linkear: Symlinks a Binarios y Librerias
+ln -s /usr/bin/awk /bin/awk
+ln -s /usr/bin/rpm /bin/rpm
+ln -s /usr/bin/basename /bin/basename
+
+ln -s /usr/lib/x86_64-linux-gnu /usr/lib64
+cd /lib64
+ln -s /lib/x86_64-linux-gnu/libgcc_s.so.1 .
+
+-> Para crear el directorio que contendra oracle
+
+mkdir -p /u01/app/oracle/product/12/dbhome_1
+chown -R oracle:oinstall /u01
+chmod -R 775 /u01
+
+->Para agregar los parametros del Kernel de Oracle 12c
+
+nano /etc/sysctl.conf
+
+#### Oracle 12c Kernel Parameters ####
+fs.suid_dumpable = 1
+fs.aio-max-nr = 1048576
+fs. le-max = 6815744
+kernel.shmall = 2097152
+kernel.shmmax = 536870912
+kernel.shmmni = 4096
+# semaphores: semmsl, semmns, semopm, semmni
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default=4194304
+net.core.rmem_max=4194304
+net.core.wmem_default=262144
+net.core.wmem_max=1048586
+
+-> Para configurar los parametros del usuario de Oracle 12c
+
+nano /etc/security/limits.conf
+
+#Add the following lines
+#### oracle User Settings 4 Oracle 12c ####
+oracle       soft  nproc  2047
+oracle       hard  nproc  16384
+oracle       soft  no le 1024
+oracle       hard  no le 65536
+oracle       soft  stack  10240
+
+-> Para agregar las rutas de Oracle (COMO USUARIO oracle)
+
+su oracle
+
+nano ~/.bashrc
+
+# Oracle Settings
+TMP=/tmp;
+export TMP TMPDIR=$TMP;
+export TMPDIR ORACLE_HOSTNAME=127.0.0.1;
+export ORACLE_HOSTNAME
+ORACLE_UNQNAME=DB12C;
+export ORACLE_UNQNAME
+ORACLE_BASE=/u01/app/oracle;
+export ORACLE_BASE
+ORACLE_HOME=$ORACLE_BASE/product/12/dbhome_1;
+export ORACLE_HOME
+ORACLE_SID=SID;
+export ORACLE_SID
+PATH=/usr/sbin:$PATH;
+export PATH
+PATH=$ORACLE_HOME/bin:$PATH;
+export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64;
+export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;
+export CLASSPATH
+
+
+-> NOTA: en export TMPDIR ORACLE_HOSTNAME=127.0.0.1; cambiamos 127.0.0.1 por el nombre
+ del nuestro host para acceso abrimos una nueva terminal y escribimos el comando
+
+hostname
+
+->el nombre que nos devuelve es el que escribimos en lugar de 127.0.0.1
+
+-> Salimos del usuario de oracle y regresamos a super usuario
+
+-> Para la instalacion
+-> Cargamos los nuevos parametros del kernel
+
+/sbin/sysctl -p
+
+-> Para cargar  la nueva configuarcion de .bashrc
+source ~/.bashrc
+
+-> Para iniciar la Instalacion
+chmod -R +x /tmp/database
+
+-> INGRESAR COMO USUARIO ORACLE
+su oracle
+/tmp/database/runInstaller
+
+----------------------------------------------------------------------------------------------------------
+Para solucionar los problemas de la instalacion se debe hacer lo siguiente:
+
+Crear usando:
+sudo nautilus
+
+El folder:
+/home/oracle/mk
+
+Descomprimir el mk usando nautilus en GUI en: - comprobado que funciona
+/home/oracle/mk
+
+
+Introducir en cada terminal
+# (TERMINAL-1-su) creamos links simbólicos
+ln -s /usr/lib/x86_64-linux-gnu /usr/lib64
+
+# (TERMINAL-2-oracle)
+cd $ORACLE_HOME/plsql/lib
+cp ~/mk/ins_plsql.mk ./
+cp ~/mk/env_plsql.mk ./
+cd ../..
+
+
+cd rdbms/lib
+cp ~/mk/ins_rdbms.mk ./
+
+cp ~/mk/env_rdbms.mk ./
+cd ../..
+
+cd sqlplus/lib
+cp ~/mk/env_sqlplus.mk ./
+cd ../..
+
+
+cd network/lib
+
+cp ~/mk/env_network.mk ./
+
+cp ~/mk/ins_net_server.mk ./
+
+cd ../..
+
+
+Ahora nos pide que ejecutemos 1 o 2 scripts como usuario "su". 
+
+# (TERMINAL-1-su)
+Execute next command:
+/u01/app/oraInventory/orainstRoot.sh
+
+
+Execute next command:
+/u01/app/oracle/product/12/dbhome_1/root.sh
+
+Enter the full pathname of the local bin directory: [/usr/local/bin]: 
+Enter
+
+Do you want to setup Oracle Trace File Analyzer (TFA) now ? yes|[no] : 
+no
+
+Oracle Trace File Analyzer (TFA - Daemon Mode) can be installed by running this script :
+/u01/app/oracle/product/12/dbhome_1/suptools/tfa/release/tfa_home/install/roottfa.sh
+
+
+Will come out the error message:
+Oracle Net Configuration Assistant failed.
+
+All is fine, just keep going, this will be resolved next.
+
+Press Ok, and Retry.
+
+Wait till the progress bar finish with 100% of progress, this will take a while.
+
+
+https://henry-All-Series:5500/em
+
+----------------------------------------------------------------------------------------------------------
+-> Para solucionar los problemas del express manager (INGRESAR COMO SUPER USUARIO)
+
+sudo su
+
+cd /etc
+
+-> Editar el archivo oratab
+
+nano oratab
+
+ir al final y en SID:/u01/app/oracle/product/12/dbhome_1:N cambiar N por Y
+
+-> Ingresar al usuario oracle
+
+su oracle
+
+cd $ORACLE_HOME/network/admin
+
+-> Editar el archivo listener.ora
+
+nano listener.ora
+
+cambiamos PORT=1539 por PORT=1521
+
+-> Para iniciar el listener
+
+INGRESAMOS lsnrctl
+INGRESAMOS stat
+INGRESAMOS start
+INGRESAMOS stat
+INGRESAMOS stat
+INGRESAMOS stat
+INGRESAMOS quit
+
+INGRESAMOS sqlplus / as sysdba
+INGRESAMOS quit
+
+INGRESAMOS lsnrctl stat
+
+-> Para iniciar el listener y la base de datos
+
+dbstart $ORACLE_HOME
+
+
+-> Para checar el estado de la Base de datos
+
+- Check whether the instance run well and database can be accessed
+
+1. Check whether the Oracle Process run or not
+
+    #> ps -ef | grep pmon
+
+    If no pmon detected, your database might be down
+    
+2. Check the instance status
+    #> sqlplus / as sysdba
+
+    SQL>select instance_name, status from v$instance;
+
+3. Check whether the database can be read or write
+
+    SQL>select name, open_mode from v$database;
+
+
+- Check whether client can access the database
+
+1. Check whether the listener is available or not
+
+    #> lsnrctl status
+
+
+-> Para crear un usuario
+
+https://henry-All-Series:5500/em
+
+Ingresar con el usuario:
+sys
+
+Ir a security-users
+
+Crea el usuario, ejemplo "oracle1" password "oracle"
+
+Dale privilegios
+
+Create session y create table
+
+Check the checkboxes
+
+En terminal
+
+sqlplus
+
+user-name: oracle1
+password:
+
+Se logea al sistema
+
+-> Crea una tabla de ejemplo
+
+create table hola(
+nombre varchar2(23)
+);
+
+-> Elimina la tabla
+
+drop table hola;
+
+-> Installing SQL Developer
+
+First install the JDK, looks like you need the JDK of oracle for the new versions of SQL Developer,
+because requires JavaFX, therefore:
+sudo apt-get install openjdk-8-jdk openjfx
+
+Copy the path in a file where is installed the JDK
+
+/usr/lib/jvm/java-8-openjdk-amd64
+
+Download Oracle SQL Developer
+
+mkdir ~/.sqldeveloper/
+cd Downloads
+
+
+mv sqldeveloper-18.2.0.183.1748-no-jre.zip ~/.sqldeveloper
+
+Unzip the file
+
+cd ~/.sqldeveloper/
+unzip sqldeveloper-18.2.0.183.1748-no-jre.zip
+
+#######Use the root user to run the program########
+
+sudo su
+
+sh /home/henry/.sqldeveloper/sqldeveloper/sqldeveloper.sh
+
+Now enter the full Java path. In my case this is done as follows:
+/usr/lib/jvm/java-8-openjdk-amd64
+
+Para usar SQL Developer, usar el username "SYS as SYSDBA", password y como SID, usa el nombre "sid".
+
+O usa el username, password que creaste en el Enterprise Manager y como SID "SID".
+
+
+Then create a launcher with Application in terminal in the superior panel to start the program, with the next command:
+
+sudo sh /home/henry/.sqldeveloper/sqldeveloper/sqldeveloper.sh
+
+With the icon:
+~/.sqldeveloper/sqldeveloper/icon.png
+
+
+Si ocurre algun problema como:
+oracle is not in the sudoers file.  This incident will be reported.
+
+To check the sudoers file:
+
+sudo su
+
+gedit /etc/sudoers
+
+Do next:
+
+sudo su
+
+adduser oracle sudo
+
+Check that the user has been added in the sudoers file:
+
+sudo su
+gedit /etc/sudoers
+
+
+
+-> To start the listener and the database use:
+dbstart $ORACLE_HOME
+
+Or to start Oracle create a script and a launcher to start the database and the listener
+
+sudo su
+
+nano /etc/init.d/oracle
+
+#!/bin/bash
+# chkconfig: 35 99 10
+# description: Starts and stops Oracle processes
+
+ORACLE_HOME=/u01/app/oracle/product/12/dbhome_1
+ORACLE_OWNER=oracle
+
+PATH=${PATH}:$ORACLE_HOME/bin
+HOST=`hostname`
+PLATFORM=`uname`
+export ORACLE_HOME PATH
+case $1 in
+'start')
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/dbstart $ORACLE_HOME"
+        ;;
+'stop')
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/lsnrctl stop"
+        su - $ORACLE_OWNER -s /bin/bash -c "$ORACLE_HOME/bin/dbshut"
+        ;;
+*)
+        echo "usage: $0 {start|stop}"
+        exit 1
+esac
+#
+exit
+
+
+
+chmod +x /etc/init.d/oracle
+
+
+Create a launcher with Application in Terminal with
+
+Name 
+Start Oracle
+
+with the command
+
+/etc/init.d/oracle start
+
+With the icon located inside:
+~/.sqldeveloper/sqldeveloper/
+
+Everytime to start the database type the password
+
+
+
+
+
+
+
