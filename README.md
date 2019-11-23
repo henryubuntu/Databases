@@ -1,6 +1,6 @@
 # Databases
 
-∀ All to learn about Databases, at least in a Basic level :)
+∀ All to learn about Databases, at least in a Basic level :), and for the rest, if you want to, I might write it in my book.
 
 + If you want all then: https://youtu.be/pzehI8JRlwY
 
