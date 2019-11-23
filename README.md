@@ -126,8 +126,6 @@ Christian Cote
 
 Matija Lah
 
-Dejan Sarka
-
 Priyanka Agarwal
 
 Itzik	Ben-Gan
@@ -174,8 +172,61 @@ Dominique Jeunot
 
 James L. Spiller
 
+Heli Helskyaho
 
+Chris Ruel
 
+Michael Wessler
+
+Dimpi Rani Sarmah
+
+Joel Murach
+
+Lex de Haan
+
+Tim Gorman
+
+Inger Jørgensen
+
+Melanie Caffrey
+
+Roopesh Ramklass
+
+Alex Reprintsev
+
+Steve O’Hearn
+
+James R. Groff
+
+Paul N. Weinberg
+
+Michael McLaughlin
+
+Benjamin	Rosenzweig
+
+Elena	Rakhimov (Елена Рахимова)
+
+Sharon Sophia Stephen
+
+Saurabh K. Gupta
+
+Steven Feuerstein
+
+Bill Pribyl
+
+James Spiller
+
+Jean-François Verrier
+
+Sean Kim
+
+Dimpi Rani Sarmah
+
+Stelios Charalambides
+
+Donna K. Keesling
+
+James L. Spiller
 
 
 
