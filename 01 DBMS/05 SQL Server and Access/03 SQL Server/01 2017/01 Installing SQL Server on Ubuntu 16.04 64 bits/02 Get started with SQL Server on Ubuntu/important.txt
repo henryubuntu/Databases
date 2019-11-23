@@ -1,0 +1,8 @@
+If something doesn't work, update and upgrade the system.
+
+Use Ubuntu-tweak to clean the system of old packages.
+
+To check query the database to check that the database executes queries:
+sqlcmd -S localhost -U SA
+select @@version
+go

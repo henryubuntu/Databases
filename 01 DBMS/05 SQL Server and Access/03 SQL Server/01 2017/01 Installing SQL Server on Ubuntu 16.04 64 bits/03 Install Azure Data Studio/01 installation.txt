@@ -1,0 +1,7 @@
+https://github.com/microsoft/azuredatastudio
+
+Server:localhost
+User name:SA
+Password:yourpassword
+
+Then create a new user and then a database by following the books.
