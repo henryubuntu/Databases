@@ -66,6 +66,115 @@ Gregory Smith
 
 Enrico Pirozzi
 
+David M. Kroenke
+
+David J. Auer
+
+Scott L. Vandenberg
+
+Robert C. Yoder
+
+Steve Conger
+
+Rex Hogan
+
+Philip J. Pratt
+
+Mary Z. Last
+
+Louis Davidson
+
+Stacia Varga
+
+Laurie Ulrich Fuller
+
+Ken Cook
+
+Mike McGrath
+
+Mary Anne Poatsy
+
+Cameron | Williams
+
+Dr. Robert T. Grauer
+
+Clare Churcher
+
+Microsoft
+
+Oracle Press
+
+Jasmin Azemović
+
+Bob Ward
+
+Bryan Syverson
+
+Joel Murach
+
+Mike McQuillan
+
+Dejan Sarka
+
+Miloš Radivojević
+
+Alex Grinberg
+
+Dmitri Korotkevitch (Дмитрий Короткевич)
+
+Christian Cote
+
+Matija Lah
+
+Dejan Sarka
+
+Priyanka Agarwal
+
+Itzik	Ben-Gan
+
+Miguel Cebollero
+
+Jay	Natarajan
+
+Michael	Coles
+
+Kathi Kellenberger 
+
+Clayton Groom
+
+Grant Fritchey
+
+Jason Strate
+
+Don Jones
+
+Peter A. Carter
+
+Victor Isakov
+
+Denny Cherry
+
+Leonard G. Lobel
+
+Eric D. Boyd
+
+Iain Foulds
+
+Joseph D’Antoni
+
+Scott Klein
+
+Dejan	Sarka
+
+Vincent Rainardi
+
+Donna K. Keesling
+
+Dominique Jeunot
+
+James L. Spiller
+
+
 
 
 
