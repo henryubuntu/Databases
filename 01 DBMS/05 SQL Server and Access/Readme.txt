@@ -2,7 +2,9 @@ Para aprender Access mejor usa los libros de fundamentals de databases
 
 Just learn SQL Server and T-SQL, if there is time, learn Access.
 
-
+Is clean, but .... well .... is .... ᵢₜ is clean :)
+https://youtu.be/YkkGTLIBpRA 
+ 
 Read:
 SQL Server on Linux
 Pro SQL Server on Linux
