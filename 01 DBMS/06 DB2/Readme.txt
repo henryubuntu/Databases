@@ -4,4 +4,4 @@ Take it easy on your schedule, your patience will be enourmosly rewarded
 (maybe, over panics and crisis, this time on your learning, 
 will create a natural defense intuitive brain mechanism for good control and moderation, we will see ._. )
 
-Finish until you feel you are ready, good luck.
+Finish all until you feel you are ready, good luck ;)
