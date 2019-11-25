@@ -1,0 +1,21 @@
+Manuals mostly of IBM ® Information Management Software:
+
+Architecting and Deploying DB2 with BLU Acceleration.pdf
+DB2 10 for z_OS Performance Topics.pdf
+DB2 9 Express-C:  The Developer Handbook for  XML, PHP, C_C++, Java, and .NET.pdf
+DB2 Administration Solution Pack for z_OS.pdf
+DB2 for z_OS and WebSphere Integration for Enterprise Java Applications.pdf
+Db2 for z_OS Utilities in  Practice.pdf
+Enhance Your Business Applications.pdf
+IBM Big Data Platform.pdf
+IBM DB2 11 for z_OS Performance Topics.pdf
+IBM DB2 12 for z_OS.pdf
+IBM DB2 9.7 Advanced Administration Cookbook: RAW.pdf
+Leveraging DB2 10 for High Performance of Your Data Warehouse .pdf
+Managing DB2 for z_OS Utilities with DB2 Tools Solution Packs.pdf
+MySQL to DB2 9 Conversion Guide.pdf
+Oracle to DB2 10 Conversion Guide.pdf
+Oracle to DB2 Conversion Guide for Linux, UNIX, and Windows.pdf
+Streamline Business with Consolidation and Conversion to DB2 for z_OS.pdf
+Subsystem and Transaction Monitoring and Tuning with DB2 11 for z_OS.pdf
+The IBM Big Data Platform.pdf

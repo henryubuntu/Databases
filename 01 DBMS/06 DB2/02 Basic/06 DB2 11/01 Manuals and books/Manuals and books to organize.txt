@@ -1,0 +1,60 @@
+IBM Db2 11 for z/OS and Db2 11.1 for Linux, UNIX, and Windows manuals:
+
+APIs (application programming interfaces).pdf
+Built-In Modules.pdf
+Built-In Routines and Views.pdf
+CLPPlus Reference.pdf
+Commands.pdf
+Compatibility Features.pdf
+Configuration Parameters.pdf
+Database Security Guide.pdf
+Data Movement Utilities Guide and Reference.pdf
+Data Recovery and High Availability Guide and Reference.pdf
+
+Db2 11 for z_OS Administration Guide.pdf
+Db2 11 for z_OS Application Programming and SQL Guide.pdf
+Db2 11 for z_OS Application Programming Guide and Reference for Java.pdf
+Db2 11 for z_OS Codes.pdf
+Db2 11 for z_OS Command Reference.pdf
+Db2 11 for z_OS Data Sharing: Planning and Administration.pdf
+Db2 11 for z_OS Installation and Migration Guide.pdf
+Db2 11 for z_OS Internationalization Guide.pdf
+Db2 11 for z_OS Managing Performance.pdf
+Db2 11 for z_OS Managing Security.pdf
+Db2 11 for z_OS Messages.pdf
+Db2 11 for z_OS ODBC Guide and Reference.pdf
+Db2 11 for z_OS pureXML Guide.pdf
+Db2 11 for z_OS RACF Access Control Module Guide.pdf
+Db2 11 for z_OS Requirements for the Common Criteria.pdf
+Db2 11 for z_OS SQL Reference.pdf
+Db2 11 for z_OS Utility Guide and Reference.pdf
+Db2 11 for z_OS What's New?.pdf
+Db2 CI.pdf
+Developing embedded SQL and XQuery database applications.pdf
+Developing Perl, PHP, Python, and Ruby on Rails Applications.pdf
+IBM Spatial Support for DB2 11 for z_OS User's Guide and Reference.pdf
+IBM Text Search for DB2 for z_OS Version 1 Release 5.0.1 Installation, Administration, and Reference.pdf
+IMS DB2 for z_OS IRLM Messages and Codes for IMS and Db2 ® for z_OS.pdf
+Introduction to Db2 for z_OS.pdf
+Licensed Program Specifications.pdf
+Partition and Clustering Guide.pdf
+Performance Tuning.pdf
+PL_SQL Support.pdf
+Program Directory for DB2 11 for z_OS.pdf
+Program Directory for DB2 11 for z_OS Value Unit Edition.pdf
+Program Directory for IBM DB2 11 for z_OS z_OS Application Connectivity to DB2 for z_OS.pdf
+Program Directory for IBM DB2 11 for z_OS z_OS Application Connectivity to DB2 for z_OS Value Unit Edition.pdf
+Program Directory for IBM DB2 Accessories Suite for DB2 V11.pdf
+Program Directory for IBM DB2 Accessories Suite for DB2 V11.pdf
+Program Directory for IBM DB2 Accessories Suite for z_OS DB2 Adapter for z_OS Connect.pdf
+Program Directory for IBM DB2 Accessories Suite for z_OS DB2 Adapter for z_OS Connect.pdf
+Program Directory for IBM DB2 Utilities Suite for z_OS.pdf
+Registry and Environment Variables.pdf
+Routines.pdf
+SQL.pdf
+SQL PL.pdf
+SQL Reference for Cross-Platform Development - Version 5.pdf
+System Monitor Guide and Reference.pdf
+Text Search Guide.pdf
+Troubleshooting and support.pdf
+Upgrading to Db2 Version 11.1.pdf

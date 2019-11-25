@@ -1,0 +1,32 @@
+Db2 12 for z/OS manuals:
+
+Db2 12 for z_OS Administration Guide.pdf
+Db2 12 for z_OS Application Programming and SQL Guide.pdf
+Db2 12 for z_OS Application Programming Guide and Reference for Java.pdf
+Db2 12 for z_OS Codes.pdf
+Db2 12 for z_OS Command Reference.pdf
+Db2 12 for z_OS Data Sharing: Planning and Administration.pdf
+Db2 12 for z_OS Installation and Migration Guide.pdf
+Db2 12 for z_OS Internationalization Guide.pdf
+Db2 12 for z_OS Managing Performance.pdf
+Db2 12 for z_OS Managing Security.pdf
+Db2 12 for z_OS Messages.pdf
+Db2 12 for z_OS ODBC Guide and Reference.pdf
+Db2 12 for z_OS pureXML Guide.pdf
+Db2 12 for z_OS RACF Access Control Module Guide.pdf
+Db2 12 for z_OS Requirements for the Common Criteria.pdf
+Db2 12 for z_OS SQL Reference.pdf
+Db2 12 for z_OS Utility Guide and Reference.pdf
+Db2 12 for z_OS What's New?.pdf
+IBM Spatial Support for DB2 12 for z_OS User's Guide and Reference.pdf
+IBM Text Search for DB2 for z_OS Installation, Administration, and Reference.pdf
+IMS DB2 for z_OS IRLM Messages and Codes for IMS and Db2 ® for z_OS.pdf
+Introduction to Db2 for z_OS1.pdf
+Introduction to Db2 for z_OS.pdf
+Licensed Program Specifications.pdf
+Program Directory for IBM DB2 12 for z_OS.pdf
+Program Directory for IBM DB2 12 for z_OS Value Unit Edition.pdf
+Program Directory for IBM DB2 12 for z_OS z_OS Application Connectivity to DB2 for z_OS.pdf
+Program Directory for IBM DB2 Accessories Suite for DB2 V12.pdf
+Program Directory for IBM DB2 Utilities Suite for z_OS.pdf
+SQL Reference for Cross-Platform Development.pdf
