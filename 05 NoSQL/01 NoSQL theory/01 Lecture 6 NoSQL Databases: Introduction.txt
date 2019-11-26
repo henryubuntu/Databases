@@ -1,0 +1,11 @@
+Czech Technical University in Prague, Faculty of Informa on Technology
+MIE-PDB: Advanced Database Systems
+h p://www.ksi.mff.cuni.cz/~svoboda/courses/2016-2-MIE-PDB/
+
+Martin Svoboda
+svoboda@ksi.mff.cuni.cz
+
+Charles University, Faculty of Mathema cs and Physics
+NDBI040: Big Data Management and NoSQL Databases
+
+31. 3. 2017

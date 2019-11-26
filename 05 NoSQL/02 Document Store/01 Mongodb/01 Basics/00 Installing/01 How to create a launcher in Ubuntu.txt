@@ -1,0 +1,9 @@
+Put the icon into:
+
+/usr/share/pixmaps
+
+Command:
+service mongod start
+
+Name:
+Start MongoDB
